@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "build-package": "vue-cli-service build --target lib --name dashboard-tailwind ./src/index.ts"
+    "build-package": "vue-cli-service build --target lib --name dashboard-tailwind ./src/lib/index.ts"
   },
   "main": "./dist/dashboard-tailwind.common.js",
   "dependencies": {

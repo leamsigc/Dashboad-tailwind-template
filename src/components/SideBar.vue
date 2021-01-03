@@ -24,6 +24,10 @@ export default class SideBarTw extends Vue {
   navItems = [
     {
       to: "/",
+      alerts: {
+        type: "bg-green-500",
+        value: ""
+      },
       name: "Home",
       active: false,
       activeStrokeColor: "#4C51BF",
@@ -38,6 +42,10 @@ export default class SideBarTw extends Vue {
     },
     {
       to: "/schedule",
+      alerts: {
+        type: "bg-blue-500",
+        value: "1"
+      },
       name: "Schedule",
       active: true,
       activeStrokeColor: "#4C51BF",
@@ -45,6 +53,96 @@ export default class SideBarTw extends Vue {
         {
           path:
             "M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z",
+          fill: "",
+          stroke: ""
+        }
+      ]
+    },
+    {
+      to: "/ui-elements",
+      alerts: {
+        type: "",
+        value: ""
+      },
+      name: "UI Elements",
+      active: false,
+      activeStrokeColor: "#4C51BF",
+      svgIcon: [
+        {
+          path:
+            "M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z",
+          fill: "",
+          stroke: ""
+        }
+      ]
+    },
+    {
+      to: "/tables",
+      alerts: {
+        type: "",
+        value: ""
+      },
+      name: "Tables",
+      active: false,
+      activeStrokeColor: "#4C51BF",
+      svgIcon: [
+        {
+          path:
+            "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10",
+          fill: "",
+          stroke: ""
+        }
+      ]
+    },
+    {
+      to: "/alerts",
+      alerts: {
+        type: "",
+        value: ""
+      },
+      name: "Alerts",
+      active: false,
+      activeStrokeColor: "#4C51BF",
+      svgIcon: [
+        {
+          path:
+            "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9",
+          fill: "",
+          stroke: ""
+        }
+      ]
+    },
+    {
+      to: "/edit",
+      alerts: {
+        type: "bg-yellow-500",
+        value: "4"
+      },
+      name: "Edits",
+      active: false,
+      activeStrokeColor: "#4C51BF",
+      svgIcon: [
+        {
+          path:
+            "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
+          fill: "",
+          stroke: ""
+        }
+      ]
+    },
+    {
+      to: "/logout",
+      alerts: {
+        type: "bg-red-500",
+        value: ""
+      },
+      name: "Logout",
+      active: false,
+      activeStrokeColor: "#4C51BF",
+      svgIcon: [
+        {
+          path:
+            "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1",
           fill: "",
           stroke: ""
         }
@@ -91,9 +189,12 @@ export default class SideBarTw extends Vue {
       <a
         v-for="(navLink, index) in navItems"
         :key="index"
-        class="flex items-center mt-4 py-2 px-6  bg-opacity-25 text-gray-100 transform hover:translate-x-2 transition-transform ease-in duration-200"
+        class="flex items-center mt-4 py-2 px-6   bg-opacity-25  transform hover:translate-x-2 transition-transform ease-in duration-200"
         :href="navLink.to"
-        :class="{ 'bg-gray-700': navLink.active }"
+        :class="{
+          'bg-gray-700 text-gray-100': navLink.active,
+          'text-gray-500': !navLink.active
+        }"
       >
         <svg
           v-if="navLink.svgIcon"
@@ -116,100 +217,14 @@ export default class SideBarTw extends Vue {
         </svg>
 
         <span class="mx-3">{{ navLink.name }}</span>
-      </a>
-
-      <a
-        class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-800 hover:bg-opacity-25 hover:text-gray-100 transform hover:translate-x-2 transition-transform ease-in duration-200"
-        href="/ui-elements"
-      >
-        <svg
-          class="h-6 w-6"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"
-          ></path>
-        </svg>
-
-        <span class="mx-3">UI Elements</span>
-      </a>
-
-      <a
-        class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-800 hover:bg-opacity-25 hover:text-gray-100 transform hover:translate-x-2 transition-transform ease-in duration-200"
-        href="/tables"
-      >
-        <svg
-          class="h-6 w-6"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-          ></path>
-        </svg>
-
-        <span class="mx-3">Tables</span>
-      </a>
-
-      <a
-        class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-800 hover:bg-opacity-25 hover:text-gray-100 transform hover:translate-x-2 transition-transform ease-in duration-200"
-        href="/forms"
-      >
-        <svg
-          class="h-6 w-6"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-          ></path>
-        </svg>
-
-        <span class="mx-3">Edits</span>
-
         <span
-          class="ml-auto mr-6 text-sm bg-red-500 rounded-full px-3 py-px text-gray-200"
+          v-if="navLink.alerts.value"
+          :class="
+            `ml-auto mr-6 text-sm rounded-full px-3 py-px text-gray-200 ${navLink.alerts.type}`
+          "
         >
-          500
+          {{ navLink.alerts.value }}
         </span>
-      </a>
-
-      <a
-        class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-800 hover:bg-opacity-25 hover:text-gray-100 transform hover:translate-x-2 transition-transform ease-in duration-200"
-        href="/forms"
-      >
-        <svg
-          class="h-6 w-6"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-          />
-        </svg>
-
-        <span class="mx-3">Logout</span>
       </a>
     </nav>
   </div>
