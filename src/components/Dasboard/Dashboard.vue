@@ -1,3 +1,52 @@
+<script lang="ts">
+/**
+ * SIde bar for the dashboard
+ *
+ * @author Reflect-Media <reflect.media GmbH>
+ * @version 0.0.1
+ *
+ * @todo [ ] Test the component
+ * @todo [ ] Integration test.
+ * @todo [✔] Update the typescript.
+ */
+import { defineComponent, ref } from "vue";
+import SideBarTw from "../SideBar/SideBar.vue";
+import HeaderTw from "../DashboardHeader/HeaderTw.vue";
+
+export default defineComponent({
+  name: "dashboard-tw",
+  components: {
+    SideBarTw,
+    HeaderTw
+  },
+  setup() {
+    const sidebarOpen = ref(false);
+    const notificationOpen = ref(false);
+    const dropdownOpen = ref(false);
+
+    const handleSideBarOpen = (status: boolean) => {
+      sidebarOpen.value = status;
+    };
+
+    const handleOpenNotification = (status: boolean) => {
+      notificationOpen.value = status;
+    };
+
+    const handleOpenDropDown = (status: boolean) =>
+      (dropdownOpen.value = status);
+
+    return {
+      sidebarOpen,
+      notificationOpen,
+      dropdownOpen,
+      handleSideBarOpen,
+      handleOpenNotification,
+      handleOpenDropDown
+    };
+  }
+});
+</script>
+
 <template>
   <div class="flex h-screen bg-gray-200">
     <div
@@ -7,7 +56,15 @@
     ></div>
     <SideBarTw :sidebarOpen="sidebarOpen" />
     <div class="flex-1 flex flex-col overflow-hidden">
-      <header
+      <HeaderTw
+        :dropdownOpen="dropdownOpen"
+        :notificationOpen="notificationOpen"
+        :sidebarOpen="sidebarOpen"
+        v-on:open-side-bar="handleSideBarOpen"
+        v-on:open-notifications="handleOpenNotification"
+        v-on:open-dropdown="handleOpenDropDown"
+      />
+      <!-- <header
         class="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600"
       >
         <div class="flex items-center">
@@ -221,7 +278,7 @@
             </div>
           </div>
         </div>
-      </header>
+      </header> -->
       <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
         <div class="container mx-auto px-6 py-8">
           <h3 class="text-gray-700 text-3xl font-medium">Dashboard</h3>
@@ -1118,29 +1175,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import SideBarTw from "./SideBar.vue";
-
-@Options({
-  name: "DashboardHeader-tw",
-  props: {
-    msg: String
-  },
-  components: {
-    SideBarTw
-  }
-})
-export default class DashboardHeader extends Vue {
-  msg!: string;
-  sidebarOpen = false;
-  notificationOpen = false;
-  dropdownOpen = false;
-}
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" scope>
 .custom-btn {
   background-color: #4c51bf;

@@ -1,10 +1,14 @@
 import { App } from "vue";
-import DashboardTwd from "@/components/";
+import * as allComponents from "@/components/";
 
-const install = (app: App) => {
-  app.component(DashboardTwd.name, DashboardTwd);
-};
+function install(Vue: App) {
+  // tslint:disable-next-line:
+  for (const component in allComponents) {
+    // @ts-expect-error
+    Vue.component(components[component].name, components[component]);
+  }
+}
 
-DashboardTwd.install = install;
+export default { install };
 
-export default DashboardTwd;
+export * from "@/components/";

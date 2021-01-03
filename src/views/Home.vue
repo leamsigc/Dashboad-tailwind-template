@@ -1,13 +1,13 @@
 <template>
-  <DashboardTailwind msg="hello from " />
+  <Dashboard msg="Hello from the app" />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import DashboardTailwind from "../lib";
+import { Dashboard } from "../lib";
 
 @Options({
-  components: { DashboardTailwind }
+  components: { Dashboard }
 })
 export default class Home extends Vue {}
 </script>

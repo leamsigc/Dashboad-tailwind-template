@@ -1,14 +1,4 @@
-import { defineComponent, h } from "vue";
-import DashboardHeader from "@/components/DashboardHeader.vue";
-
-const DashboardTwd = defineComponent({
-  name: "dashboard",
-  components: {
-    DashboardHeader
-  },
-  render() {
-    return h(DashboardHeader);
-  }
-});
-
-export default DashboardTwd;
+import Dashboard from "@/components/Dasboard";
+import SideBar from "@/components/SideBar";
+import HeaderTw from "@/components/DashboardHeader";
+export { SideBar, Dashboard, HeaderTw };
