@@ -32,9 +32,208 @@ export default defineComponent({
 
 <template>
   <header
-    class="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600"
+    class="justify-between items-center  bg-white border-b-4 border-indigo-600 grid grid-cols-12"
   >
-    <div class="flex items-center">
+    <nav class="  col-span-12 flex-col bg-gray-900  flex-1 w-full sticky">
+      <div class="hidden sm:block sm:ml-6">
+        <div
+          class="flex space-x-2 font-medium justify-items-center align-middle p-3"
+        >
+          <span
+            v-if="!sidebarOpen"
+            class="transition-all ease-in-out  duration-700 bg-gray-800 text-white px-2 py-2.5 rounded-md text-sm"
+          >
+            <svg
+              @click="$emit('open-side-bar', !sidebarOpen)"
+              class="block cursor-pointer h-6 w-6 ml-auto text-gray-700 hover:text-green-400 transition-colors ease-in-out duration-100"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+              />
+            </svg>
+          </span>
+          <a
+            href="#"
+            class="transition-all ease-in-out duration-300 bg-gray-800 text-white px-2 py-2.5 rounded-md text-sm"
+            >Dashboard</a
+          >
+          <a
+            href="#"
+            class="transition-all ease-in-out duration-300 text-gray-500 hover:bg-gray-800 hover:text-white px-3 py-2.5 rounded-md text-sm"
+            >Team</a
+          >
+          <a
+            href="#"
+            class="transition-all ease-in-out duration-300 text-gray-500 hover:bg-gray-800 hover:text-white px-3 py-2.5 rounded-md text-sm"
+            >Projects</a
+          >
+          <a
+            href="#"
+            class="transition-all ease-in-out duration-300 text-gray-500 hover:bg-gray-800 hover:text-white px-3 py-2.5 rounded-md text-sm"
+            >Calendar</a
+          >
+          <div class="flex-1 flex text-blue-600">
+            <span
+              class="flex place-items-center hover:bg-gray-800 transition-all ease-in-out duration-300 rounded bg-transparent font-bold text-xs ml-auto text-green-500 mr-2 px-3"
+            >
+              <svg
+                class="block h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </span>
+            <span
+              class="relative flex place-items-center hover:bg-gray-800 transition-all ease-in-out duration-300 rounded bg-transparent font-bold text-xs text-green-500 mr-2 px-3"
+            >
+              <span
+                class="animate-ping absolute inset-0 h-full w-full rounded-full bg-green-900 opacity-25 hover:animate-none hover:opacity-0 transition-opacity ease-out duration-100"
+              ></span>
+              <svg
+                class="block h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 64 80"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="5"
+                  d="M34.999 3.516c-0.828 0-1.5 0.671-1.5 1.499v23.987c0 0.828 0.671 1.499 1.5 1.499h23.986c0.828 0 1.499-0.671 1.499-1.499-0.016-14.069-11.416-25.47-25.485-25.486zM29.002 9.513c-14.075 0-25.486 11.41-25.486 25.485s11.411 25.486 25.486 25.486 25.485-11.41 25.485-25.486c0-0.828-0.671-1.499-1.499-1.499h-22.487v-22.487c0-0.828-0.671-1.499-1.499-1.499zM27.503 12.561v22.437c0 0.828 0.671 1.5 1.499 1.5h22.437c-0.803 11.803-10.606 20.972-22.437 20.987-12.42 0.005-22.491-10.059-22.496-22.479-0.004-11.843 9.179-21.661 20.997-22.445z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex place-items-center hover:bg-gray-800 transition-all ease-in-out duration-300 rounded bg-transparent font-bold text-xs text-green-500 mr-2 px-3"
+            >
+              <svg
+                class="block h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex place-items-center hover:bg-gray-800 transition-all ease-in-out duration-300 rounded bg-transparent font-bold text-xs text-green-500 mr-2 px-3"
+            >
+              <svg
+                class="block h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex place-items-center hover:bg-gray-800 transition-all ease-in-out duration-300 rounded bg-transparent font-bold text-xs text-green-500 mr-2 px-3"
+            >
+              <svg
+                class="block h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
+                />
+              </svg>
+            </span>
+            <button
+              @click="$emit('open-dropdown', !dropdownOpen)"
+              class="hover:bg-gray-800 transition-all ease-in-out duration-300 rounded py-1 px-2 bg-transparent font-bold text-xs text-gray-400"
+            >
+              Hi, Ism
+              <span
+                class="bg-green-200 text-lg ml-1 py-1 px-3 rounded-sm text-green-400"
+              >
+                I
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class=" hidden sm:flex   bg-gray-50 py-2 px-2 font-normal text-xs text-gray-400"
+      >
+        <div class="text-sm text-gray-700 font-semibold px-4">
+          Welcome back!
+        </div>
+        <div class="ml-auto flex space-x-2 px-4">
+          <span
+            class="cursor-pointer transition-all ease-in-out duration-300 hover:text-green-500 hover:bg-gray-200 py-1 px-2 rounded-sm"
+            >Today</span
+          >
+          <span
+            class="cursor-pointertransition-all ease-in-out duration-300 hover:text-green-500 hover:bg-gray-200 py-1 px-2 rounded-sm"
+            >Month</span
+          >
+          <span
+            class="cursor-pointer transition-all ease-in-out duration-300 hover:text-green-500 hover:bg-gray-200 py-1 px-2 rounded-sm"
+            >Year</span
+          >
+          <span
+            class="cursor-pointer transition-all ease-in-out duration-300 text-gray-400 bg-gray-200 py-1 rounded-sm px-2"
+            >Today:
+            <span class="text-green-500 ml-1"> Jan 5 </span>
+          </span>
+          <span
+            class="cursor-pointer py-1 px-2 text-green-500 hover:bg-gray-200 rounded"
+          >
+            <svg
+              class="block w-4 h-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1"
+                d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="flex items-center col-span-6 py-3 px-6">
       <button
         @click="$emit('open-side-bar', true)"
         class="text-gray-500 focus:outline-none lg:hidden"
@@ -74,28 +273,9 @@ export default defineComponent({
           placeholder="Search"
         />
       </div>
-      <div class="relative mx-4 lg:mx-0">
-        <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
-          <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
-          </svg>
-        </span>
-
-        <input
-          class="form-input w-32 sm:w-64 rounded-md pl-10 pr-4 focus:border-indigo-600"
-          type="text"
-          placeholder="Search"
-        />
-      </div>
     </div>
 
-    <div class="flex items-center">
+    <div class="flex items-center justify-end col-span-6 py-3 px-6">
       <div class="relative">
         <button
           @click="$emit('open-notifications', true)"
@@ -193,7 +373,6 @@ export default defineComponent({
           </a>
         </div>
       </div>
-
       <div class="relative">
         <button
           @click="$emit('open-dropdown', !dropdownOpen)"

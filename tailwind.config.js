@@ -2,10 +2,13 @@ module.exports = {
   purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {}
+    extend: {},
+    fontFamily: {
+      sans: ["Poppins", "ui-sans-serif", "system-ui"]
+    }
   },
   variants: {
-    extend: {}
+    animation: ["hover", "focus"]
   },
   plugins: []
 };

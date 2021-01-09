@@ -20,11 +20,12 @@ export default defineComponent({
     HeaderTw
   },
   setup() {
-    const sidebarOpen = ref(false);
+    const sidebarOpen = ref(true);
     const notificationOpen = ref(false);
     const dropdownOpen = ref(false);
 
     const handleSideBarOpen = (status: boolean) => {
+      console.log(status);
       sidebarOpen.value = status;
     };
 
@@ -35,13 +36,49 @@ export default defineComponent({
     const handleOpenDropDown = (status: boolean) =>
       (dropdownOpen.value = status);
 
+    const cardItems = [
+      {
+        title: "The witcher",
+        username: "@leamsigc",
+        image: "https://picsum.photos/510/640",
+        posts: 345,
+        fallowers: 5456,
+        fallowing: 343
+      },
+      {
+        title: "LEAMSIGC",
+        username: "@leamsigc",
+        image: "https://picsum.photos/500/640",
+        posts: 35,
+        fallowers: 546,
+        fallowing: 33
+      },
+      {
+        title: "El camino",
+        username: "@leamsigc",
+        image: "https://picsum.photos/540/640",
+        posts: 35,
+        fallowers: 546,
+        fallowing: 33
+      },
+      {
+        title: "La puerta al sol",
+        username: "@leamsigc",
+        image: "https://picsum.photos/506/640",
+        posts: 35,
+        fallowers: 546,
+        fallowing: 33
+      }
+    ];
+
     return {
       sidebarOpen,
       notificationOpen,
       dropdownOpen,
       handleSideBarOpen,
       handleOpenNotification,
-      handleOpenDropDown
+      handleOpenDropDown,
+      cardItems
     };
   }
 });
@@ -54,8 +91,15 @@ export default defineComponent({
       @click="sidebarOpen = !sidebarOpen"
       class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"
     ></div>
-    <SideBarTw :sidebarOpen="sidebarOpen" />
-    <div class="flex-1 flex flex-col overflow-hidden">
+
+    <SideBarTw
+      :sidebarOpen="sidebarOpen"
+      v-on:open-side-bar="handleSideBarOpen"
+    />
+
+    <div
+      class="flex-1 flex flex-col overflow-hidden transition-all ease-in-out duration-700"
+    >
       <HeaderTw
         :dropdownOpen="dropdownOpen"
         :notificationOpen="notificationOpen"
@@ -64,574 +108,362 @@ export default defineComponent({
         v-on:open-notifications="handleOpenNotification"
         v-on:open-dropdown="handleOpenDropDown"
       />
-      <!-- <header
-        class="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600"
+      <main
+        class="main_content flex-1 overflow-x-hidden overflow-y-auto bg-gray-200"
       >
-        <div class="flex items-center">
-          <button
-            @click="sidebarOpen = true"
-            class="text-gray-500 focus:outline-none lg:hidden"
+        <div class="container mx-auto  py-8">
+          <div class="grid md:grid-cols-12 gap-4 sm:grid-cols-1">
+            <div
+              class="col-span-4 bg-gray-100 shadow rounded-2xl grid grid-cols-2 gap-4 p-4"
+            >
+              <div
+                class="card-header h-52 col-span-2 bg-red-400 rounded-t-2xl -m-4"
+              ></div>
+              <div class="col-span-1 bg-yellow-100 rounded-md px-2 py-5 -mt-6">
+                <svg
+                  class="block text-yellow-500 w-6/12 h-3/6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                    d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+                  />
+                </svg>
+                <h4 class="text-base font-medium text-yellow-500">
+                  Weekly sales
+                </h4>
+              </div>
+              <div class="col-span-1 bg-blue-100 rounded-md px-2 py-5 -mt-6">
+                <svg
+                  class="block text-blue-500 w-6/12 h-3/6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <h4 class="text-base font-medium text-blue-500">Total users</h4>
+              </div>
+
+              <div class="col-span-1 bg-red-100 rounded-md px-2 py-5">
+                <svg
+                  class="block text-red-400 w-6/12 h-3/6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 128 160"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                    d="M102.7,92.5l6.1,6.1c0.1,0.1,0.3,0.2,0.5,0.2c0.2,0,0.4-0.1,0.5-0.2l4.1-4.1c0.1-0.1,0.2-0.3,0.2-0.5   c0-0.2-0.1-0.4-0.2-0.5l-9.1-9.1l3.1-1.5c0.3-0.1,0.4-0.4,0.4-0.7v-0.4c0-0.3-0.2-0.6-0.5-0.7l-5.3-2.1v-27c0,0,0,0,0,0v0   c0,0,0-0.1,0-0.1c0,0,0,0,0,0c-0.1-0.3-0.4-0.5-0.7-0.6l-11.2-9.1V28.4c0-1.9-1.6-3.5-3.5-3.5h-18l-13.5-11c-0.3-0.2-0.7-0.2-0.9,0   l-13.5,11h-18c-1.9,0-3.5,1.6-3.5,3.5v13.9L8.4,51.4c-0.2,0-0.4,0.1-0.5,0.3c0,0,0,0.1-0.1,0.1c0,0,0,0.1,0,0.1   c0,0.1-0.1,0.2-0.1,0.3v54.7c0,0,0,0,0,0c0,0,0,0,0,0c0,0.1,0,0.2,0.1,0.3c0,0,0,0,0,0c0.1,0.1,0.1,0.2,0.2,0.2c0,0,0,0,0,0   c0,0,0,0,0,0c0.1,0.1,0.2,0.1,0.4,0.1h93.4c0.3,0,0.5-0.2,0.6-0.4l0,0c0.1-0.1,0.1-0.2,0.1-0.4v0c0,0,0,0,0,0V92.5z M103.3,83.6   c-0.2,0.1-0.4,0.3-0.4,0.5c0,0.2,0,0.5,0.2,0.6l9.3,9.3l-3.1,3l-9.3-9.3c-0.1-0.1-0.3-0.2-0.5-0.2c0,0-0.1,0-0.1,0   c-0.2,0-0.4,0.2-0.5,0.4l-1.5,3l-5.7-14.5l14.5,5.7L103.3,83.6z M90.7,74.5c-0.3-0.1-0.6,0-0.8,0.2c-0.2,0.2-0.3,0.5-0.2,0.8   l6.9,17.7c0.1,0.3,0.4,0.5,0.7,0.5c0.3,0,0.6-0.1,0.7-0.4l1.7-3.6l1.5,1.5v14.5L64.6,84.3l25.8-21.6l10.7-9v24.8L90.7,74.5z    M100.7,52.2l-10,8.3V44.2L100.7,52.2z M55.2,15.4l11.7,9.4H43.5L55.2,15.4z M21.2,28.4c0-1.1,0.9-2,2-2h18.2h27.5h18.2   c1.1,0,2,0.9,2,2v14.3v19.2L63.8,83l-0.5,0.4L60.7,82c-3.4-2-7.6-2-11,0l-2.6,1.5l-26-21.7V42.6V28.4z M9.2,105.5V53.7l36.6,30.5   L9.2,105.5L9.2,105.5z M19.7,44.2v16.4l-10-8.3L19.7,44.2z M11.2,106.1l2.2-1.3l37.1-21.6c2.9-1.7,6.6-1.7,9.5,0l39.3,22.8H11.2z"
+                  />
+                </svg>
+
+                <h4 class="text-base font-medium text-red-500">Items sales</h4>
+              </div>
+              <div class="col-span-1 bg-green-100 rounded-md px-2 py-5">
+                <svg
+                  class="block text-green-500 w-6/12 h-3/6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="1 -1 100 125"
+                  stroke="currentColor"
+                >
+                  <g
+                    xmlns="http://www.w3.org/2000/svg"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  >
+                    <ellipse
+                      class="st0"
+                      cx="51.1"
+                      cy="58"
+                      rx="30.2"
+                      ry="36.2"
+                    />
+                    <line class="st0" x1="23.8" y1="42.3" x2="78.4" y2="42.3" />
+                    <line class="st0" x1="51.1" y1="94.2" x2="51.1" y2="42.2" />
+                    <line class="st0" x1="81.3" y1="60.9" x2="94.3" y2="60.9" />
+                    <line class="st0" x1="79" y1="72.6" x2="92" y2="76.1" />
+                    <line class="st0" x1="20.7" y1="60.9" x2="7.7" y2="60.9" />
+                    <g
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1"
+                    >
+                      <line
+                        class="st0"
+                        x1="80.6"
+                        y1="49.2"
+                        x2="93.6"
+                        y2="45.7"
+                      />
+                      <line
+                        class="st0"
+                        x1="21.4"
+                        y1="49.2"
+                        x2="8.4"
+                        y2="45.7"
+                      />
+                    </g>
+                    <line class="st0" x1="23" y1="72.6" x2="10" y2="76.1" />
+                    <g
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1"
+                    >
+                      <circle class="st0" cx="68.1" cy="9.5" r="5.6" />
+                      <line
+                        class="st0"
+                        x1="63.8"
+                        y1="25.3"
+                        x2="66.6"
+                        y2="14.9"
+                      />
+                      <circle class="st0" cx="34.2" cy="9.5" r="5.6" />
+                      <line
+                        class="st0"
+                        x1="38.4"
+                        y1="25.3"
+                        x2="35.6"
+                        y2="14.9"
+                      />
+                    </g>
+                  </g>
+                  <g
+                    xmlns="http://www.w3.org/2000/svg"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                  >
+                    <circle class="st0" cx="35.3" cy="57.4" r="5.7" />
+                    <circle class="st0" cx="39" cy="75.8" r="3.4" />
+                    <circle class="st0" cx="66.7" cy="57.4" r="5.7" />
+                    <circle class="st0" cx="63" cy="75.8" r="3.4" />
+                  </g>
+                </svg>
+                <h4 class="text-base font-medium text-green-500">
+                  Bug reports
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="custom-scroll col-span-4 bg-gray-100 rounded-2xl text-sm text-gray-400 overflow-x-hidden overflow-y-auto"
+            >
+              <h3 class="p-4  flex  ">
+                <div class="pt-5">
+                  <span class=" block font-semibold text-base text-gray-800">
+                    My activities
+                  </span>
+                  <span class=" text-xs ">
+                    13,234 Sales
+                  </span>
+                </div>
+                <div
+                  class=" ml-auto bg-gray-100 flex items-center px-3 rounded hover:bg-gray-200 transition-all ease-in-out duration-300 cursor-pointer"
+                >
+                  <svg
+                    class="block w-4 h-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1"
+                      d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                    />
+                  </svg>
+                </div>
+              </h3>
+
+              <ul class="font-medium">
+                <li class=" grid  grid-cols-8 px-4 text-xs mb-6 ">
+                  <span class=" col-span-2 text-gray-800 font-semibold"
+                    >12:30 PM</span
+                  >
+                  <span
+                    class="block w-3 h-3 bg-gray-100 border-2 border-green-500  rounded-full col-span-1 relative z-10"
+                  >
+                    <span
+                      class=" absolute inset-x-1/4 w-1 opacity-25  h-16 bg-gray-300 slashed-zero"
+                    ></span>
+                  </span>
+                  <span class=" col-span-5">
+                    Outlines keep you honest. And keep structure
+                  </span>
+                </li>
+
+                <li class=" grid  grid-cols-8 px-4 text-xs mb-6 ">
+                  <span class=" col-span-2 text-gray-800 font-semibold"
+                    >12:30 PM</span
+                  >
+                  <span
+                    class="block w-3 h-3 bg-gray-100 border-2 border-red-500  rounded-full col-span-1 relative z-10"
+                  >
+                    <span
+                      class=" absolute inset-x-1/4 w-1 opacity-25  h-16 bg-gray-300 slashed-zero"
+                    ></span>
+                  </span>
+                  <span class=" col-span-5 text-gray-800">
+                    Outlines keep you honest. And keep structure
+                  </span>
+                </li>
+
+                <li class=" grid  grid-cols-8 px-4 text-xs mb-6 ">
+                  <span class=" col-span-2 text-gray-800 font-semibold"
+                    >12:30 PM</span
+                  >
+                  <span
+                    class="block w-3 h-3 bg-gray-100 border-2 border-purple-500  rounded-full col-span-1 relative z-10"
+                  >
+                    <span
+                      class=" absolute inset-x-1/4 w-1 opacity-25  h-16 bg-gray-300 slashed-zero"
+                    ></span>
+                  </span>
+                  <span class=" col-span-5 text-gray-800">
+                    Create new project ticket
+                    <span class=" text-blue-600">#4321</span>
+                  </span>
+                </li>
+
+                <li class=" grid  grid-cols-8 px-4 text-xs mb-6 ">
+                  <span class=" col-span-2 text-gray-800 font-semibold"
+                    >12:30 PM</span
+                  >
+                  <span
+                    class="block w-3 h-3 bg-gray-100 border-2 border-blue-500  rounded-full col-span-1 relative z-10"
+                  >
+                    <span
+                      class=" absolute inset-x-1/4 w-1 opacity-25  h-16 bg-gray-300 slashed-zero"
+                    ></span>
+                  </span>
+                  <span class=" col-span-5">
+                    Outlines keep you honest. And keep structure
+                  </span>
+                </li>
+
+                <li class=" grid  grid-cols-8 px-4 text-xs mb-6 ">
+                  <span class=" col-span-2 text-gray-800 font-semibold"
+                    >12:30 PM</span
+                  >
+                  <span
+                    class="block w-3 h-3 bg-gray-100 border-2 border-green-500  rounded-full col-span-1 relative z-10"
+                  >
+                    <span
+                      class=" absolute inset-x-1/4 w-1 opacity-25  h-16 bg-gray-300 slashed-zero"
+                    ></span>
+                  </span>
+                  <span class=" col-span-5 text-gray-800">
+                    Outlines keep you honest. And keep structure
+                  </span>
+                </li>
+
+                <li class=" grid  grid-cols-8 px-4 text-xs mb-6 ">
+                  <span class=" col-span-2 text-gray-800 font-semibold"
+                    >12:30 PM</span
+                  >
+                  <span
+                    class="block w-3 h-3 bg-gray-100 border-2 border-green-500  rounded-full col-span-1 relative z-10"
+                  >
+                    <span
+                      class=" absolute inset-x-1/4 w-1 opacity-25  h-16 bg-gray-300 slashed-zero"
+                    ></span>
+                  </span>
+                  <span class=" col-span-5">
+                    Outlines keep you honest. And keep structure
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-span-4  rounded grid">
+              <div class="card-header w-full h-60 bg-gray-50 rounded-2xl"></div>
+              <div
+                class="card-header w-full h-60 bg-gray-50 rounded-2xl mt-auto"
+              ></div>
+            </div>
+          </div>
+
+          <!-- CARDS -->
+          <div
+            class=" grid grid-cols-1 mt-4 gap-6  lg:grid-cols-12 px-5  lg:px-0"
           >
-            <svg
-              class="h-6 w-6"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4 6H20M4 12H20M4 18H11"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-            </svg>
-          </button>
-
-          <div class="relative mx-4 lg:mx-0">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
-              <svg
-                class="h-5 w-5 text-gray-500"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </span>
-
-            <input
-              class="form-input w-32 sm:w-64 rounded-md pl-10 pr-4 focus:border-indigo-600"
-              type="text"
-              placeholder="Search"
-            />
-          </div>
-          <div class="relative mx-4 lg:mx-0">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
-              <svg
-                class="h-5 w-5 text-gray-500"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </span>
-
-            <input
-              class="form-input w-32 sm:w-64 rounded-md pl-10 pr-4 focus:border-indigo-600"
-              type="text"
-              placeholder="Search"
-            />
-          </div>
-        </div>
-
-        <div class="flex items-center">
-          <div class="relative">
-            <button
-              @click="notificationOpen = true"
-              class="flex mx-4 text-gray-600 focus:outline-none"
-            >
-              <svg
-                class="h-6 w-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15 17H20L18.5951 15.5951C18.2141 15.2141 18 14.6973 18 14.1585V11C18 8.38757 16.3304 6.16509 14 5.34142V5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5V5.34142C7.66962 6.16509 6 8.38757 6 11V14.1585C6 14.6973 5.78595 15.2141 5.40493 15.5951L4 17H9M15 17V18C15 19.6569 13.6569 21 12 21C10.3431 21 9 19.6569 9 18V17M15 17H9"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </button>
-
             <div
-              v-show="notificationOpen"
-              @click="notificationOpen = !notificationOpen"
-              class="fixed inset-0 h-full w-full z-10"
-            ></div>
-
-            <div
-              v-show="notificationOpen"
-              class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-10"
-              style="width: 20rem; "
+              v-for="(card, index) in cardItems"
+              :key="index"
+              class="container mx-auto col-span-3   rounded-lg overflow-hidden shadow-lg my-2 bg-white  w-full "
             >
-              <a
-                href="#"
-                class="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-indigo-600 -mx-2"
-              >
-                <img
-                  class="h-8 w-8 rounded-full object-cover mx-1"
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=334&amp;q=80"
-                  alt="avatar"
-                />
-                <p class="text-sm mx-2">
-                  <span class="font-bold" href="#">Sara Salah</span> replied on
-                  the
-                  <span class="font-bold text-indigo-400" href="#"
-                    >Upload Image</span
+              <div class="relative mb-6   bg-blue-900">
+                <div class=" h-96">
+                  <img
+                    class=" h-full w-full  opacity-40"
+                    :src="card.image"
+                    alt="Profile picture"
+                  />
+                </div>
+                <div class="text-center absolute w-full" style="bottom: -30px">
+                  <div class="mb-10">
+                    <p
+                      class="text-white tracking-wide uppercase text-lg font-bold"
+                    >
+                      {{ card.title }}
+                    </p>
+                    <p class="text-gray-400 text-sm">{{ card.username }}</p>
+                  </div>
+                  <button
+                    class="p-4 rounded-full transition ease-in duration-200 focus:outline-none custom-btn"
                   >
-                  artical . 2m
-                </p>
-              </a>
-              <a
-                href="#"
-                class="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-indigo-600 -mx-2"
-              >
-                <img
-                  class="h-8 w-8 rounded-full object-cover mx-1"
-                  src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80"
-                  alt="avatar"
-                />
-                <p class="text-sm mx-2">
-                  <span class="font-bold" href="#">Slick Net</span> start
-                  following you . 45m
-                </p>
-              </a>
-              <a
-                href="#"
-                class="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-indigo-600 -mx-2"
-              >
-                <img
-                  class="h-8 w-8 rounded-full object-cover mx-1"
-                  src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=334&amp;q=80"
-                  alt="avatar"
-                />
-                <p class="text-sm mx-2">
-                  <span class="font-bold" href="#">Jane Doe</span> Like Your
-                  reply on
-                  <span class="font-bold text-indigo-400" href="#"
-                    >Test with TDD</span
-                  >
-                  artical . 1h
-                </p>
-              </a>
-              <a
-                href="#"
-                class="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-indigo-600 -mx-2"
-              >
-                <img
-                  class="h-8 w-8 rounded-full object-cover mx-1"
-                  src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=398&amp;q=80"
-                  alt="avatar"
-                />
-                <p class="text-sm mx-2">
-                  <span class="font-bold" href="#">Abigail Bennett</span> start
-                  following you . 3h
-                </p>
-              </a>
-            </div>
-          </div>
-
-          <div class="relative">
-            <button
-              @click="dropdownOpen = !dropdownOpen"
-              class="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none"
-            >
-              <img
-                class="h-full w-full object-cover"
-                src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=296&amp;q=80"
-                alt="Your avatar"
-              />
-            </button>
-
-            <div
-              v-show="dropdownOpen"
-              @click="dropdownOpen = !dropdownOpen"
-              class="fixed inset-0 h-full w-full z-10"
-              style="display: none;"
-            ></div>
-
-            <div
-              v-show="dropdownOpen"
-              class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10"
-              style="display: none;"
-            >
-              <a
-                href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                >Profile</a
-              >
-              <a
-                href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                >Products</a
-              >
-              <a
-                href="/login"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                >Logout</a
-              >
-            </div>
-          </div>
-        </div>
-      </header> -->
-      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-        <div class="container mx-auto px-6 py-8">
-          <h3 class="text-gray-700 text-3xl font-medium">Dashboard</h3>
-
-          <div class="mt-4">
-            <div class="flex flex-wrap -mx-6">
-              <!-- <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
-                <div
-                  class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white"
-                >
-                  <div class="p-3 rounded-full bg-indigo-600 bg-opacity-75">
                     <svg
-                      class="h-8 w-8 text-white"
-                      viewBox="0 0 28 30"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      enable-background="new 0 0 20 20"
+                      class="w-6 h-6"
                     >
                       <path
-                        d="M18.2 9.08889C18.2 11.5373 16.3196 13.5222 14 13.5222C11.6804 13.5222 9.79999 11.5373 9.79999 9.08889C9.79999 6.64043 11.6804 4.65556 14 4.65556C16.3196 4.65556 18.2 6.64043 18.2 9.08889Z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M25.2 12.0444C25.2 13.6768 23.9464 15 22.4 15C20.8536 15 19.6 13.6768 19.6 12.0444C19.6 10.4121 20.8536 9.08889 22.4 9.08889C23.9464 9.08889 25.2 10.4121 25.2 12.0444Z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M19.6 22.3889C19.6 19.1243 17.0927 16.4778 14 16.4778C10.9072 16.4778 8.39999 19.1243 8.39999 22.3889V26.8222H19.6V22.3889Z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M8.39999 12.0444C8.39999 13.6768 7.14639 15 5.59999 15C4.05359 15 2.79999 13.6768 2.79999 12.0444C2.79999 10.4121 4.05359 9.08889 5.59999 9.08889C7.14639 9.08889 8.39999 10.4121 8.39999 12.0444Z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M22.4 26.8222V22.3889C22.4 20.8312 22.0195 19.3671 21.351 18.0949C21.6863 18.0039 22.0378 17.9556 22.4 17.9556C24.7197 17.9556 26.6 19.9404 26.6 22.3889V26.8222H22.4Z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M6.64896 18.0949C5.98058 19.3671 5.59999 20.8312 5.59999 22.3889V26.8222H1.39999V22.3889C1.39999 19.9404 3.2804 17.9556 5.59999 17.9556C5.96219 17.9556 6.31367 18.0039 6.64896 18.0949Z"
-                        fill="currentColor"
-                      ></path>
+                        fill="#FFFFFF"
+                        d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
+                     C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
+                     C15.952,9,16,9.447,16,10z"
+                      />
                     </svg>
-                  </div>
-
-                  <div class="mx-5">
-                    <h4 class="text-2xl font-semibold text-gray-700">8,282</h4>
-                    <div class="text-gray-500">New Users</div>
-                  </div>
+                  </button>
                 </div>
               </div>
-
-              <div class="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
-                <div
-                  class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white"
-                >
-                  <div class="p-3 rounded-full bg-orange-600 bg-opacity-75">
-                    <svg
-                      class="h-8 w-8 text-white"
-                      viewBox="0 0 28 28"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M4.19999 1.4C3.4268 1.4 2.79999 2.02681 2.79999 2.8C2.79999 3.57319 3.4268 4.2 4.19999 4.2H5.9069L6.33468 5.91114C6.33917 5.93092 6.34409 5.95055 6.34941 5.97001L8.24953 13.5705L6.99992 14.8201C5.23602 16.584 6.48528 19.6 8.97981 19.6H21C21.7731 19.6 22.4 18.9732 22.4 18.2C22.4 17.4268 21.7731 16.8 21 16.8H8.97983L10.3798 15.4H19.6C20.1303 15.4 20.615 15.1004 20.8521 14.6261L25.0521 6.22609C25.2691 5.79212 25.246 5.27673 24.991 4.86398C24.7357 4.45123 24.2852 4.2 23.8 4.2H8.79308L8.35818 2.46044C8.20238 1.83722 7.64241 1.4 6.99999 1.4H4.19999Z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M22.4 23.1C22.4 24.2598 21.4598 25.2 20.3 25.2C19.1403 25.2 18.2 24.2598 18.2 23.1C18.2 21.9402 19.1403 21 20.3 21C21.4598 21 22.4 21.9402 22.4 23.1Z"
-                        fill="currentColor"
-                      ></path>
-                      <path
-                        d="M9.1 25.2C10.2598 25.2 11.2 24.2598 11.2 23.1C11.2 21.9402 10.2598 21 9.1 21C7.9402 21 7 21.9402 7 23.1C7 24.2598 7.9402 25.2 9.1 25.2Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </div>
-
-                  <div class="mx-5">
-                    <h4 class="text-2xl font-semibold text-gray-700">
-                      200,521
-                    </h4>
-                    <div class="text-gray-500">Total Orders</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-                <div
-                  class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white"
-                >
-                  <div class="p-3 rounded-full bg-pink-600 bg-opacity-75">
-                    <svg
-                      class="h-8 w-8 text-white"
-                      viewBox="0 0 28 28"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M6.99998 11.2H21L22.4 23.8H5.59998L6.99998 11.2Z"
-                        fill="currentColor"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linejoin="round"
-                      ></path>
-                      <path
-                        d="M9.79999 8.4C9.79999 6.08041 11.6804 4.2 14 4.2C16.3196 4.2 18.2 6.08041 18.2 8.4V12.6C18.2 14.9197 16.3196 16.8 14 16.8C11.6804 16.8 9.79999 14.9197 9.79999 12.6V8.4Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      ></path>
-                    </svg>
-                  </div>
-
-                  <div class="mx-5">
-                    <h4 class="text-2xl font-semibold text-gray-700">
-                      215,542
-                    </h4>
-                    <div class="text-gray-500">Available Products</div>
-                  </div>
-                </div>
-              </div> -->
-
               <div
-                class="container mx-auto max-w-xs   rounded-lg overflow-hidden shadow-lg my-2 bg-white  sm:w-1/2 xl:w-1/3"
+                class="py-10 px-6 text-center tracking-wide grid grid-cols-3 gap-6"
               >
-                <div class="relative mb-6">
-                  <img
-                    class="w-full"
-                    src="https://picsum.photos/510/640"
-                    alt="Profile picture"
-                  />
-                  <div
-                    class="text-center absolute w-full"
-                    style="bottom: -30px"
-                  >
-                    <div class="mb-10">
-                      <p
-                        class="text-white tracking-wide uppercase text-lg font-bold"
-                      >
-                        Witch
-                      </p>
-                      <p class="text-gray-400 text-sm">@witch_forever</p>
-                    </div>
-                    <button
-                      class="p-4 rounded-full transition ease-in duration-200 focus:outline-none custom-btn"
-                    >
-                      <svg
-                        viewBox="0 0 20 20"
-                        enable-background="new 0 0 20 20"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill="#FFFFFF"
-                          d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
-                     C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
-                     C15.952,9,16,9.447,16,10z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                <div class="posts">
+                  <p class="text-lg">{{ card.posts }}</p>
+                  <p class="text-gray-400 text-sm">Posts</p>
                 </div>
-                <div
-                  class="py-10 px-6 text-center tracking-wide grid grid-cols-3 gap-6"
-                >
-                  <div class="posts">
-                    <p class="text-lg">324</p>
-                    <p class="text-gray-400 text-sm">Posts</p>
-                  </div>
-                  <div class="followers">
-                    <p class="text-lg">7542</p>
-                    <p class="text-gray-400 text-sm">Followers</p>
-                  </div>
-                  <div class="following">
-                    <p class="text-lg">295</p>
-                    <p class="text-gray-400 text-sm">Following</p>
-                  </div>
+                <div class="followers">
+                  <p class="text-lg">{{ card.fallowers }}</p>
+                  <p class="text-gray-400 text-sm">Followers</p>
                 </div>
-              </div>
-
-              <div
-                class="container mx-auto max-w-xs rounded-lg overflow-hidden shadow-lg my-2 bg-white  sm:w-1/2 xl:w-1/3"
-              >
-                <div class="relative mb-6  ">
-                  <img
-                    class="w-full"
-                    src="https://picsum.photos/515/640"
-                    alt="Profile picture"
-                  />
-                  <div
-                    class="text-center absolute w-full"
-                    style="bottom: -30px"
-                  >
-                    <div class="mb-10">
-                      <p
-                        class="text-white tracking-wide uppercase text-lg font-bold"
-                      >
-                        Witch
-                      </p>
-                      <p class="text-gray-400 text-sm">@witch_forever</p>
-                    </div>
-                    <button
-                      class="p-4 rounded-full transition ease-in duration-200 focus:outline-none custom-btn"
-                    >
-                      <svg
-                        viewBox="0 0 20 20"
-                        enable-background="new 0 0 20 20"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill="#FFFFFF"
-                          d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
-                     C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
-                     C15.952,9,16,9.447,16,10z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <div
-                  class="py-10 px-6 text-center tracking-wide grid grid-cols-3 gap-6"
-                >
-                  <div class="posts">
-                    <p class="text-lg">324</p>
-                    <p class="text-gray-400 text-sm">Posts</p>
-                  </div>
-                  <div class="followers">
-                    <p class="text-lg">7542</p>
-                    <p class="text-gray-400 text-sm">Followers</p>
-                  </div>
-                  <div class="following">
-                    <p class="text-lg">295</p>
-                    <p class="text-gray-400 text-sm">Following</p>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="container mx-auto max-w-xs rounded-lg overflow-hidden shadow-lg my-2 bg-white  sm:w-1/2 xl:w-1/3"
-              >
-                <div class="relative mb-6">
-                  <img
-                    class="w-full opacity-75 "
-                    src="https://picsum.photos/504/640"
-                    alt="Profile picture"
-                  />
-                  <div
-                    class="text-center absolute w-full"
-                    style="bottom: -30px"
-                  >
-                    <div class="mb-10">
-                      <p
-                        class="text-gray-900 tracking-wide uppercase text-lg font-bold"
-                      >
-                        Witch
-                      </p>
-                      <p class="text-gray-900 text-sm">@witch_forever</p>
-                    </div>
-                    <button
-                      class="p-4 rounded-full transition ease-in duration-200 focus:outline-none custom-btn"
-                    >
-                      <svg
-                        viewBox="0 0 20 20"
-                        enable-background="new 0 0 20 20"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill="#FFFFFF"
-                          d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
-                     C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
-                     C15.952,9,16,9.447,16,10z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <div
-                  class="py-10 px-6 text-center tracking-wide grid grid-cols-3 gap-6"
-                >
-                  <div class="posts">
-                    <p class="text-lg">324</p>
-                    <p class="text-gray-400 text-sm">Posts</p>
-                  </div>
-                  <div class="followers">
-                    <p class="text-lg">7542</p>
-                    <p class="text-gray-400 text-sm">Followers</p>
-                  </div>
-                  <div class="following">
-                    <p class="text-lg">295</p>
-                    <p class="text-gray-400 text-sm">Following</p>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="container mx-auto max-w-xs rounded-lg overflow-hidden shadow-lg my-2 bg-white  sm:w-1/2 xl:w-1/3"
-              >
-                <div class="relative mb-6">
-                  <img
-                    class="w-full"
-                    src="https://picsum.photos/500/640"
-                    alt="Profile picture"
-                  />
-                  <div
-                    class="text-center absolute w-full"
-                    style="bottom: -30px"
-                  >
-                    <div class="mb-10">
-                      <p
-                        class="text-white tracking-wide uppercase text-lg font-bold"
-                      >
-                        Witch
-                      </p>
-                      <p class="text-gray-400 text-sm">@witch_forever</p>
-                    </div>
-                    <button
-                      class="p-4 rounded-full transition ease-in duration-200 focus:outline-none custom-btn"
-                    >
-                      <svg
-                        viewBox="0 0 20 20"
-                        enable-background="new 0 0 20 20"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill="#FFFFFF"
-                          d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
-                     C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
-                     C15.952,9,16,9.447,16,10z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <div
-                  class="py-10 px-6 text-center tracking-wide grid grid-cols-3 gap-6"
-                >
-                  <div class="posts">
-                    <p class="text-lg">324</p>
-                    <p class="text-gray-400 text-sm">Posts</p>
-                  </div>
-                  <div class="followers">
-                    <p class="text-lg">7542</p>
-                    <p class="text-gray-400 text-sm">Followers</p>
-                  </div>
-                  <div class="following">
-                    <p class="text-lg">295</p>
-                    <p class="text-gray-400 text-sm">Following</p>
-                  </div>
+                <div class="following">
+                  <p class="text-lg">{{ card.fallowing }}</p>
+                  <p class="text-gray-400 text-sm">Following</p>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="mt-8"></div>
-
           <div class="flex flex-col mt-8">
             <div
               class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
@@ -663,8 +495,10 @@ export default defineComponent({
                         Role
                       </th>
                       <th
-                        class="px-6 py-3 border-b border-gray-200 bg-gray-50"
-                      ></th>
+                        class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Actions
+                      </th>
                     </tr>
                   </thead>
 
@@ -722,447 +556,14 @@ export default defineComponent({
                       </td>
 
                       <td
-                        class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
-                      >
-                        <a
-                          href="#"
-                          class="text-indigo-600 hover:text-indigo-900"
-                          >Edit</a
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 h-10 w-10">
-                            <img
-                              class="h-10 w-10 rounded-full"
-                              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                              alt=""
-                            />
-                          </div>
-
-                          <div class="ml-4">
-                            <div
-                              class="text-sm leading-5 font-medium text-gray-900"
-                            >
-                              John Doe
-                            </div>
-                            <div class="text-sm leading-5 text-gray-500">
-                              john@example.com
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="text-sm leading-5 text-gray-900">
-                          Software Engineer
-                        </div>
-                        <div class="text-sm leading-5 text-gray-500">
-                          Web dev
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                          >Active</span
-                        >
-                      </td>
-
-                      <td
                         class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
                       >
-                        Owner
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
-                      >
                         <a
                           href="#"
                           class="text-indigo-600 hover:text-indigo-900"
-                          >Edit</a
                         >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 h-10 w-10">
-                            <img
-                              class="h-10 w-10 rounded-full"
-                              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                              alt=""
-                            />
-                          </div>
-
-                          <div class="ml-4">
-                            <div
-                              class="text-sm leading-5 font-medium text-gray-900"
-                            >
-                              John Doe
-                            </div>
-                            <div class="text-sm leading-5 text-gray-500">
-                              john@example.com
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="text-sm leading-5 text-gray-900">
-                          Software Engineer
-                        </div>
-                        <div class="text-sm leading-5 text-gray-500">
-                          Web dev
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                          >Active</span
-                        >
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                      >
-                        Owner
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
-                      >
-                        <a
-                          href="#"
-                          class="text-indigo-600 hover:text-indigo-900"
-                          >Edit</a
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 h-10 w-10">
-                            <img
-                              class="h-10 w-10 rounded-full"
-                              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                              alt=""
-                            />
-                          </div>
-
-                          <div class="ml-4">
-                            <div
-                              class="text-sm leading-5 font-medium text-gray-900"
-                            >
-                              John Doe
-                            </div>
-                            <div class="text-sm leading-5 text-gray-500">
-                              john@example.com
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="text-sm leading-5 text-gray-900">
-                          Software Engineer
-                        </div>
-                        <div class="text-sm leading-5 text-gray-500">
-                          Web dev
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                          >Active</span
-                        >
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                      >
-                        Owner
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
-                      >
-                        <a
-                          href="#"
-                          class="text-indigo-600 hover:text-indigo-900"
-                          >Edit</a
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 h-10 w-10">
-                            <img
-                              class="h-10 w-10 rounded-full"
-                              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                              alt=""
-                            />
-                          </div>
-
-                          <div class="ml-4">
-                            <div
-                              class="text-sm leading-5 font-medium text-gray-900"
-                            >
-                              John Doe
-                            </div>
-                            <div class="text-sm leading-5 text-gray-500">
-                              john@example.com
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="text-sm leading-5 text-gray-900">
-                          Software Engineer
-                        </div>
-                        <div class="text-sm leading-5 text-gray-500">
-                          Web dev
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                          >Active</span
-                        >
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                      >
-                        Owner
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
-                      >
-                        <a
-                          href="#"
-                          class="text-indigo-600 hover:text-indigo-900"
-                          >Edit</a
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 h-10 w-10">
-                            <img
-                              class="h-10 w-10 rounded-full"
-                              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                              alt=""
-                            />
-                          </div>
-
-                          <div class="ml-4">
-                            <div
-                              class="text-sm leading-5 font-medium text-gray-900"
-                            >
-                              John Doe
-                            </div>
-                            <div class="text-sm leading-5 text-gray-500">
-                              john@example.com
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="text-sm leading-5 text-gray-900">
-                          Software Engineer
-                        </div>
-                        <div class="text-sm leading-5 text-gray-500">
-                          Web dev
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                          >Active</span
-                        >
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                      >
-                        Owner
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
-                      >
-                        <a
-                          href="#"
-                          class="text-indigo-600 hover:text-indigo-900"
-                          >Edit</a
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 h-10 w-10">
-                            <img
-                              class="h-10 w-10 rounded-full"
-                              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                              alt=""
-                            />
-                          </div>
-
-                          <div class="ml-4">
-                            <div
-                              class="text-sm leading-5 font-medium text-gray-900"
-                            >
-                              John Doe
-                            </div>
-                            <div class="text-sm leading-5 text-gray-500">
-                              john@example.com
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="text-sm leading-5 text-gray-900">
-                          Software Engineer
-                        </div>
-                        <div class="text-sm leading-5 text-gray-500">
-                          Web dev
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                          >Active</span
-                        >
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                      >
-                        Owner
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
-                      >
-                        <a
-                          href="#"
-                          class="text-indigo-600 hover:text-indigo-900"
-                          >Edit</a
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 h-10 w-10">
-                            <img
-                              class="h-10 w-10 rounded-full"
-                              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                              alt=""
-                            />
-                          </div>
-
-                          <div class="ml-4">
-                            <div
-                              class="text-sm leading-5 font-medium text-gray-900"
-                            >
-                              John Doe
-                            </div>
-                            <div class="text-sm leading-5 text-gray-500">
-                              john@example.com
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <div class="text-sm leading-5 text-gray-900">
-                          Software Engineer
-                        </div>
-                        <div class="text-sm leading-5 text-gray-500">
-                          Web dev
-                        </div>
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                      >
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                          >Active</span
-                        >
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                      >
-                        Owner
-                      </td>
-
-                      <td
-                        class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
-                      >
-                        <a
-                          href="#"
-                          class="text-indigo-600 hover:text-indigo-900"
-                          >Edit</a
-                        >
+                          Edit
+                        </a>
                       </td>
                     </tr>
                   </tbody>
@@ -1171,6 +572,12 @@ export default defineComponent({
             </div>
           </div>
         </div>
+
+        <footer class=" bg-gray-900 col-span-12  py-10  text-gray-400 mt-10 ">
+          <div class="container m-auto">
+            leamsigc garcia
+          </div>
+        </footer>
       </main>
     </div>
   </div>
